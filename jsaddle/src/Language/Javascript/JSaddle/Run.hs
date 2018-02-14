@@ -73,7 +73,6 @@ import Language.Javascript.JSaddle.Types
         Object(..), JSValueReceived(..), JSM(..), Batch(..), JSValueForSend(..), syncPoint, syncAfter, sendCommand)
 import Language.Javascript.JSaddle.Exception (JSException(..))
 import Control.DeepSeq (force, deepseq)
-import GHC.Stats (getGCStatsEnabled, getGCStats, GCStats(..))
 import Data.Foldable (forM_)
 #endif
 
@@ -193,8 +192,8 @@ runJavaScript sendBatch entryPoint = do
         logInfo s =
             readIORef loggingEnabled >>= \case
                 True -> do
-                    currentBytesUsedStr <- getGCStatsEnabled >>= \case
-                        True  -> show . currentBytesUsed <$> getGCStats
+                    currentBytesUsedStr <- (return False) >>= \case
+                        True  -> return "??"
                         False -> return "??"
                     cbCount <- M.size <$> readTVarIO callbacks
                     putStrLn . s $ "M " <> currentBytesUsedStr <> " CB " <> show cbCount <> " "
