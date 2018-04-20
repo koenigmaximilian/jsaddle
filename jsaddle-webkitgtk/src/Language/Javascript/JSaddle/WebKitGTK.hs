@@ -14,13 +14,7 @@
 -- |
 --
 -----------------------------------------------------------------------------
-module Language.Javascript.JSaddle.WebKitGTK (
-  -- * Running JSM in a WebView
-    run
-#ifndef ghcjs_HOST_OS
-  , runInWebView
-#endif
-  ) where
+module Language.Javascript.JSaddle.WebKitGTK where
 
 #ifdef ghcjs_HOST_OS
 
